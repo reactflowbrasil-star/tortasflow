@@ -13,8 +13,12 @@ type IntroSplashProps = {
 
 const slideImages = [heroTorta, matilda, bombom, banoffee, ferrero];
 
-const heroText =
-  "Transforme Tortas em uma Fonte de Renda Lucrativa. Aprenda a produzir Tortas de Feira irresistíveis e fature alto mesmo começando do absoluto zero.";
+const typewriterPhrases = [
+  "uma fonte de renda lucrativa",
+  "vendas todos os dias",
+  "sobremesas premium",
+  "um negócio doce",
+];
 
 export function IntroSplash({ onFinish }: IntroSplashProps) {
   const [typedText, setTypedText] = useState("");
@@ -33,16 +37,30 @@ export function IntroSplash({ onFinish }: IntroSplashProps) {
   }, [onFinish]);
 
   useEffect(() => {
+    let phraseIndex = 0;
     let cursor = 0;
+    let deleting = false;
+    let pauseTicks = 0;
 
     const typeTimer = window.setInterval(() => {
-      cursor += 1;
-      setTypedText(heroText.slice(0, cursor));
+      const phrase = typewriterPhrases[phraseIndex];
 
-      if (cursor >= heroText.length) {
-        window.clearInterval(typeTimer);
+      if (!deleting && cursor < phrase.length) {
+        cursor += 1;
+      } else if (!deleting && pauseTicks < 18) {
+        pauseTicks += 1;
+      } else if (!deleting) {
+        deleting = true;
+        pauseTicks = 0;
+      } else if (cursor > 0) {
+        cursor -= 1;
+      } else {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % typewriterPhrases.length;
       }
-    }, 34);
+
+      setTypedText(phrase.slice(0, cursor));
+    }, 58);
 
     return () => window.clearInterval(typeTimer);
   }, []);
@@ -95,22 +113,25 @@ export function IntroSplash({ onFinish }: IntroSplashProps) {
         />
 
         <motion.div
-          className="mt-8 min-h-[8rem] max-w-3xl rounded-2xl border border-gold/25 bg-black/22 px-5 py-5 shadow-[0_24px_70px_rgba(0,0,0,0.32)] backdrop-blur-sm sm:min-h-[7rem] sm:px-7"
+          className="mt-8 flex min-h-[8rem] max-w-4xl flex-col items-center justify-center text-balance drop-shadow-[0_18px_38px_rgba(0,0,0,0.72)] sm:min-h-[7rem]"
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.45 }}
         >
-          <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-gold sm:text-xs">
+          <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.28em] text-gold sm:text-xs">
             Especialista em Tortas de Feira
           </p>
-          <p className="font-display text-2xl leading-tight text-cream sm:text-4xl">
-            {typedText}
-            <motion.span
-              aria-hidden="true"
-              className="ml-1 inline-block h-[1em] w-0.5 translate-y-1 bg-gold"
-              animate={{ opacity: [1, 0, 1] }}
-              transition={{ duration: 0.8, repeat: Infinity }}
-            />
+          <p className="font-display text-4xl leading-none text-cream sm:text-6xl">
+            Transforme tortas em
+            <span className="mt-2 block min-h-[1.05em] italic text-gradient-gold">
+              {typedText}
+              <motion.span
+                aria-hidden="true"
+                className="ml-1 inline-block h-[0.82em] w-0.5 translate-y-1 bg-gold"
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 0.8, repeat: Infinity }}
+              />
+            </span>
           </p>
         </motion.div>
 
