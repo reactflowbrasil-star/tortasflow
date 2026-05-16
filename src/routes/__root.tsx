@@ -83,7 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "Especialista em Tortas de Feira" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@TortasFlow" },
       { name: "twitter:title", content: "Tortas Flow" },
       { name: "twitter:description", content: "Especialista em Tortas de Feira" },
       {
