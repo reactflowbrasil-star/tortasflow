@@ -4,7 +4,7 @@ import { ArrowRight, Loader2, LockKeyhole, X } from "lucide-react";
 import { CHECKOUT_URL } from "@/lib/checkout";
 
 const LEAD_EMAIL = "reactflowbrasil@gmail.com";
-const FORMSUBMIT_AJAX_URL = `https://formsubmit.co/ajax/${LEAD_EMAIL}`;
+const FORMSUBMIT_URL = `https://formsubmit.co/${LEAD_EMAIL}`;
 
 const openCheckout = () => {
   window.location.assign(CHECKOUT_URL);
@@ -57,7 +57,7 @@ export function CheckoutLeadModal() {
     setSubmitting(true);
     setError("");
 
-    const lead = {
+    const lead: Record<string, string> = {
       nome: form.nome.trim(),
       whatsapp: form.whatsapp.trim(),
       instagram: form.instagram.trim(),
@@ -68,19 +68,15 @@ export function CheckoutLeadModal() {
       _template: "table",
     };
 
-    try {
-      const response = await fetch(FORMSUBMIT_AJAX_URL, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          accept: "application/json",
-        },
-        body: JSON.stringify(lead),
-      });
+    const body = new FormData();
+    Object.entries(lead).forEach(([key, value]) => body.append(key, value));
 
-      if (!response.ok) {
-        throw new Error(`Lead endpoint failed with status ${response.status}`);
-      }
+    try {
+      await fetch(FORMSUBMIT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body,
+      });
     } catch (err) {
       console.error("Lead submission error", err);
       setSubmitting(false);
