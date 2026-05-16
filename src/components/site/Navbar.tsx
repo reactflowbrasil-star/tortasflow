@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import logoWhite from "@/assets/logo-white.png";
+import { InstallPwaButton } from "./InstallPwaButton";
 
 const links = [
   { href: "#beneficios", label: "Benefícios" },
@@ -19,7 +20,7 @@ export function Navbar() {
       style={{ backgroundColor: bg, backdropFilter: blur }}
       className="fixed inset-x-0 top-0 z-50 transition-colors"
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-3.5 md:px-8 md:py-4">
         <a href="#top" className="flex items-center gap-2">
           <img src={logoWhite} alt="Tortas Flow" className="h-8 md:h-10 w-auto" />
         </a>
@@ -35,12 +36,15 @@ export function Navbar() {
             </li>
           ))}
         </ul>
-        <a
-          href="#oferta"
-          className="hidden md:inline-flex items-center rounded-full bg-gradient-to-r from-gold to-[oklch(0.85_0.12_75)] px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-chocolate shadow-glow transition hover:-translate-y-0.5"
-        >
-          Garantir minha vaga
-        </a>
+        <div className="hidden items-center gap-2 md:flex">
+          <InstallPwaButton compact />
+          <a
+            href="#oferta"
+            className="btn-luxe inline-flex min-h-0 items-center px-5 py-2.5 text-xs font-bold uppercase tracking-[0.13em]"
+          >
+            Garantir minha vaga
+          </a>
+        </div>
       </nav>
     </motion.header>
   );

@@ -72,6 +72,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#6D0F1B" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-title", content: "Tortas Flow" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { title: "Tortas Flow" },
       { name: "description", content: "Especialista em Tortas de Feira" },
       { name: "author", content: "Tortas Flow" },
@@ -82,8 +86,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Tortas Flow" },
       { name: "twitter:description", content: "Especialista em Tortas de Feira" },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/54c60eec-5b74-48a3-b379-2979dd8aa3c3/id-preview-45aa458d--9b3c7c35-4af7-43d7-9d54-31b38bf55fc8.lovable.app-1778960710767.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/54c60eec-5b74-48a3-b379-2979dd8aa3c3/id-preview-45aa458d--9b3c7c35-4af7-43d7-9d54-31b38bf55fc8.lovable.app-1778960710767.png" },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/54c60eec-5b74-48a3-b379-2979dd8aa3c3/id-preview-45aa458d--9b3c7c35-4af7-43d7-9d54-31b38bf55fc8.lovable.app-1778960710767.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/54c60eec-5b74-48a3-b379-2979dd8aa3c3/id-preview-45aa458d--9b3c7c35-4af7-43d7-9d54-31b38bf55fc8.lovable.app-1778960710767.png",
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -96,6 +108,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "icon", href: "/pwa-icon.svg", type: "image/svg+xml" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "apple-touch-icon", href: "/pwa-icon.svg" },
     ],
   }),
   shellComponent: RootShell,
@@ -106,7 +121,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>

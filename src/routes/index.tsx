@@ -1,5 +1,8 @@
+import { useCallback, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/site/Navbar";
+import { IntroSplash } from "@/components/site/IntroSplash";
 import { Hero } from "@/components/site/Hero";
 import { Benefits } from "@/components/site/Benefits";
 import { Modules } from "@/components/site/Modules";
@@ -25,13 +28,12 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Tortas Flow — Especialista em Tortas de Feira" },
       {
         property: "og:description",
-        content: "Transforme tortas em uma fonte de renda lucrativa com receitas exclusivas e estratégias de venda comprovadas.",
+        content:
+          "Transforme tortas em uma fonte de renda lucrativa com receitas exclusivas e estratégias de venda comprovadas.",
       },
       { property: "og:type", content: "website" },
     ],
-    links: [
-      { rel: "canonical", href: "/" },
-    ],
+    links: [{ rel: "canonical", href: "/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -39,11 +41,10 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "Course",
           name: "Tortas Flow — Especialista em Tortas de Feira",
-          description:
-            "Curso online completo para produzir e vender tortas de feira lucrativas.",
+          description: "Curso online completo para produzir e vender tortas de feira lucrativas.",
           provider: { "@type": "Organization", name: "Tortas Flow" },
           inLanguage: "pt-BR",
-          offers: { "@type": "Offer", price: "397.00", priceCurrency: "BRL" },
+          offers: { "@type": "Offer", price: "129.90", priceCurrency: "BRL" },
         }),
       },
     ],
@@ -52,21 +53,27 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
+  const [showIntro, setShowIntro] = useState(true);
+  const finishIntro = useCallback(() => setShowIntro(false), []);
+
   return (
-    <main className="bg-background text-foreground">
-      <Navbar />
-      <Hero />
-      <Benefits />
-      <Modules />
-      <Gallery />
-      <Audience />
-      <Testimonials />
-      <About />
-      <Offer />
-      <Guarantee />
-      <Faq />
-      <Footer />
-      <StickyCta />
-    </main>
+    <>
+      <AnimatePresence>{showIntro && <IntroSplash onFinish={finishIntro} />}</AnimatePresence>
+      <main className="bg-background text-foreground">
+        <Navbar />
+        <Hero />
+        <Benefits />
+        <Modules />
+        <Gallery />
+        <Audience />
+        <Testimonials />
+        <About />
+        <Offer />
+        <Guarantee />
+        <Faq />
+        <Footer />
+        <StickyCta />
+      </main>
+    </>
   );
 }
