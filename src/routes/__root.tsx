@@ -80,6 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Tortas Flow" },
+      { name: "twitter:description", content: "Especialista em Tortas de Feira" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/54c60eec-5b74-48a3-b379-2979dd8aa3c3/id-preview-45aa458d--9b3c7c35-4af7-43d7-9d54-31b38bf55fc8.lovable.app-1778960710767.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/54c60eec-5b74-48a3-b379-2979dd8aa3c3/id-preview-45aa458d--9b3c7c35-4af7-43d7-9d54-31b38bf55fc8.lovable.app-1778960710767.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
