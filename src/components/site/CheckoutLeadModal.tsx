@@ -4,7 +4,7 @@ import { ArrowRight, Loader2, LockKeyhole, X } from "lucide-react";
 import { CHECKOUT_URL } from "@/lib/checkout";
 
 const LEAD_EMAIL = "reactflowbrasil@gmail.com";
-const LEAD_ENDPOINT = "/api/submit-lead";
+const FORMSUBMIT_AJAX_URL = `https://formsubmit.co/ajax/${LEAD_EMAIL}`;
 
 const openCheckout = () => {
   window.location.assign(CHECKOUT_URL);
@@ -63,12 +63,18 @@ export function CheckoutLeadModal() {
       instagram: form.instagram.trim(),
       email_destino: LEAD_EMAIL,
       origem: "Landing Page Tortas Flow",
+      _captcha: "false",
+      _subject: "Novo lead para compra do curso Tortas Flow",
+      _template: "table",
     };
 
     try {
-      const response = await fetch(LEAD_ENDPOINT, {
+      const response = await fetch(FORMSUBMIT_AJAX_URL, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: {
+          "content-type": "application/json",
+          accept: "application/json",
+        },
         body: JSON.stringify(lead),
       });
 
