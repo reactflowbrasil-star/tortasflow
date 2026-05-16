@@ -36,7 +36,7 @@ export function Gallery() {
           </p>
         </div>
 
-        <div className="mt-14 columns-2 gap-5 lg:columns-3 [column-fill:_balance]">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3">
           {cakes.map((c, i) => (
             <motion.figure
               key={c.name}
@@ -44,19 +44,23 @@ export function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: (i % 3) * 0.08 }}
-              className="group relative mb-5 break-inside-avoid overflow-hidden rounded-3xl ring-1 ring-gold/20"
+              className="group overflow-hidden rounded-3xl border border-gold/20 bg-chocolate/80 shadow-luxe"
             >
-              <img
-                src={c.src}
-                alt={c.name}
-                loading="lazy"
-                className="h-auto w-full transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-chocolate/95 via-chocolate/30 to-transparent opacity-90 transition-opacity group-hover:opacity-100" />
-              <figcaption className="absolute inset-x-0 bottom-0 p-5">
+              <div className="relative aspect-[4/5] overflow-hidden bg-black sm:aspect-[5/6]">
+                <img
+                  src={c.src}
+                  alt={c.name}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-chocolate/45 to-transparent" />
+              </div>
+              <figcaption className="p-5">
                 <p className="text-[10px] uppercase tracking-[0.25em] text-gold">Receita inclusa</p>
-                <p className="mt-1 font-display text-2xl">{c.name}</p>
-                <p className="mt-1 text-xs text-cream/70">{c.tone}</p>
+                <p className="mt-2 font-display text-3xl leading-tight sm:text-2xl">{c.name}</p>
+                <p className="mt-2 text-sm leading-6 text-cream/72 sm:text-xs sm:leading-5">
+                  {c.tone}
+                </p>
               </figcaption>
             </motion.figure>
           ))}

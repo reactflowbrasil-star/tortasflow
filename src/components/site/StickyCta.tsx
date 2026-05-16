@@ -14,11 +14,11 @@ export function StickyCta() {
       {show && (
         <>
           <motion.div
-            initial={{ y: 96, opacity: 0 }}
+            initial={{ y: 32, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 96, opacity: 0 }}
+            exit={{ y: 32, opacity: 0 }}
             transition={{ duration: 0.35 }}
-            className="fixed inset-x-0 bottom-0 z-40 border-t border-gold/30 bg-chocolate/95 px-3 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-20px_60px_rgba(0,0,0,0.28)] backdrop-blur-md sm:px-4 md:hidden"
+            className="fixed inset-x-3 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-40 rounded-full border border-gold/35 bg-chocolate/92 p-1.5 shadow-[0_18px_48px_rgba(0,0,0,0.35)] backdrop-blur-md sm:inset-x-4 md:hidden"
           >
             <div className="mx-auto grid max-w-md grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
               <a
