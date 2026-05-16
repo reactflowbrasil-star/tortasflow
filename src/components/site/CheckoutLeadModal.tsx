@@ -4,28 +4,32 @@ import { ArrowRight, Loader2, LockKeyhole, X } from "lucide-react";
 import { CHECKOUT_URL } from "@/lib/checkout";
 
 const LEAD_EMAIL = "reactflowbrasil@gmail.com";
-const FORMSUBMIT_AJAX_URL = `https://formsubmit.co/ajax/${LEAD_EMAIL}`;
+const FORMSUBMIT_URL = `https://formsubmit.co/${LEAD_EMAIL}`;
+const LEAD_SUBMIT_TARGET = "checkout-lead-submit-frame";
 
-const submitEmailLead = async (data: Record<string, string>) => {
-  const response = await fetch(FORMSUBMIT_AJAX_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      ...data,
-      _captcha: "false",
-      _subject: "Novo lead para compra do curso Tortas Flow",
-      _template: "table",
-    }),
+const submitEmailLead = (data: Record<string, string>) => {
+  const emailForm = document.createElement("form");
+  emailForm.action = FORMSUBMIT_URL;
+  emailForm.method = "POST";
+  emailForm.target = LEAD_SUBMIT_TARGET;
+  emailForm.style.display = "none";
+
+  Object.entries({
+    ...data,
+    _captcha: "false",
+    _subject: "Novo lead para compra do curso Tortas Flow",
+    _template: "table",
+  }).forEach(([name, value]) => {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    emailForm.appendChild(input);
   });
 
-  if (!response.ok) {
-    throw new Error(`FormSubmit failed: ${response.status}`);
-  }
-
-  return response.json();
+  document.body.appendChild(emailForm);
+  emailForm.submit();
+  window.setTimeout(() => emailForm.remove(), 1000);
 };
 
 const openCheckout = () => {
@@ -78,7 +82,7 @@ export function CheckoutLeadModal() {
     setError("");
   };
 
-  const submitLead = async (event: FormEvent<HTMLFormElement>) => {
+  const submitLead = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
     setError("");
@@ -92,7 +96,7 @@ export function CheckoutLeadModal() {
     };
 
     try {
-      await submitEmailLead(lead);
+      submitEmailLead(lead);
     } catch (err) {
       console.error("Lead submission error", err);
       setSubmitting(false);
@@ -100,13 +104,22 @@ export function CheckoutLeadModal() {
       return;
     }
 
-    openCheckout();
-    setSubmitting(false);
-    setOpen(false);
+    window.setTimeout(() => {
+      openCheckout();
+      setSubmitting(false);
+      setOpen(false);
+    }, 450);
   };
 
   return (
     <>
+      <iframe
+        title="Envio seguro dos dados"
+        name={LEAD_SUBMIT_TARGET}
+        className="hidden"
+        aria-hidden="true"
+      />
+
       <AnimatePresence>
         {open && (
           <motion.div
