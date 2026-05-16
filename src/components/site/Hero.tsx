@@ -8,6 +8,7 @@ import {
   Wifi,
 } from "lucide-react";
 import heroTorta from "@/assets/hero-torta.jpg";
+import { CHECKOUT_URL } from "@/lib/checkout";
 
 const badges = [
   { icon: InfinityIcon, label: "Acesso Vitalício" },
@@ -74,7 +75,9 @@ export function Hero() {
             className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start"
           >
             <a
-              href="#oferta"
+              href={CHECKOUT_URL}
+              target="_blank"
+              rel="noreferrer"
               className="btn-luxe inline-flex w-full items-center justify-center gap-2 whitespace-nowrap px-5 py-3.5 text-[12px] font-bold uppercase tracking-[0.08em] sm:w-auto sm:px-7 sm:text-sm sm:tracking-[0.13em]"
             >
               <ShoppingBag className="h-4 w-4" />
@@ -82,7 +85,9 @@ export function Hero() {
               <ArrowRight className="h-4 w-4" />
             </a>
             <a
-              href="#oferta"
+              href={CHECKOUT_URL}
+              target="_blank"
+              rel="noreferrer"
               className="btn-ghost-luxe inline-flex w-full items-center justify-center gap-2 whitespace-nowrap px-5 py-3.5 text-[12px] font-bold uppercase tracking-[0.08em] sm:w-auto sm:px-7 sm:text-sm sm:tracking-[0.13em]"
             >
               Garantir minha vaga

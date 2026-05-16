@@ -12,6 +12,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Countdown } from "./Countdown";
+import { CHECKOUT_URL } from "@/lib/checkout";
 
 const includes = [
   "12 módulos completos em vídeo HD",
@@ -105,16 +106,26 @@ export function Offer() {
               <div className="absolute inset-0 grain pointer-events-none" />
               <div className="relative">
                 <p className="text-xs uppercase tracking-widest text-cream/60">Curso completo</p>
-                <p className="mt-4 text-xs uppercase tracking-widest text-gold">Pix ou cartões</p>
+                <p className="mt-4 text-xs uppercase tracking-widest text-gold">
+                  Oferta por tempo limitado
+                </p>
+                <p className="mt-2 text-sm font-semibold uppercase tracking-widest text-cream/70">
+                  12x de
+                </p>
                 <p className="font-display text-6xl leading-none text-cream sm:text-7xl">
-                  R$ 129<span className="text-3xl text-cream/70">,90</span>
+                  R$ 13<span className="text-3xl text-cream/70">,44</span>
                 </p>
-                <p className="mt-2 text-sm text-cream/80">
-                  à vista no Pix ou parcelado nos cartões
-                </p>
+                <div className="mt-4 rounded-2xl border border-gold/30 bg-black/20 px-4 py-3">
+                  <p className="text-xs uppercase tracking-widest text-cream/60">ou no Pix por</p>
+                  <p className="mt-1 font-display text-3xl leading-none text-gold">
+                    R$ 129<span className="text-xl text-gold/80">,90</span>
+                  </p>
+                </div>
 
                 <a
-                  href="#"
+                  href={CHECKOUT_URL}
+                  target="_blank"
+                  rel="noreferrer"
                   className="btn-luxe mt-8 inline-flex w-full items-center justify-center gap-2 whitespace-nowrap px-5 py-3.5 text-[12px] font-bold uppercase tracking-[0.08em] sm:px-6 sm:text-sm sm:tracking-[0.13em]"
                 >
                   <ShoppingBag className="h-4 w-4" />

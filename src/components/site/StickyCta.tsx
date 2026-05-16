@@ -2,6 +2,7 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-
 import { useState } from "react";
 import { ArrowRight, ShoppingBag } from "lucide-react";
 import { InstallPwaButton } from "./InstallPwaButton";
+import { CHECKOUT_URL } from "@/lib/checkout";
 
 export function StickyCta() {
   const { scrollY } = useScroll();
@@ -21,7 +22,9 @@ export function StickyCta() {
           >
             <div className="mx-auto flex max-w-md items-center gap-2.5">
               <a
-                href="#oferta"
+                href={CHECKOUT_URL}
+                target="_blank"
+                rel="noreferrer"
                 className="btn-luxe inline-flex min-w-0 flex-1 items-center justify-center gap-2 whitespace-nowrap px-4 py-2.5 text-xs font-bold uppercase tracking-[0.08em]"
               >
                 <ShoppingBag className="h-4 w-4 shrink-0" />
@@ -33,7 +36,9 @@ export function StickyCta() {
           </motion.div>
 
           <motion.a
-            href="#oferta"
+            href={CHECKOUT_URL}
+            target="_blank"
+            rel="noreferrer"
             initial={{ x: 120, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 120, opacity: 0 }}
