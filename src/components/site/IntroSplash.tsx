@@ -80,7 +80,7 @@ export function IntroSplash({ onFinish }: IntroSplashProps) {
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover opacity-0"
           initial={{ opacity: 0, scale: 1 }}
-          animate={{ opacity: [0, 0.34, 0.34, 0], scale: [1, 1.07] }}
+          animate={{ opacity: [0, 0.5, 0.5, 0], scale: [1, 1.07] }}
           transition={{
             duration: 5.5,
             delay: index * 2,
@@ -90,7 +90,7 @@ export function IntroSplash({ onFinish }: IntroSplashProps) {
           }}
         />
       ))}
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(18,8,8,0.92),rgba(109,15,27,0.74)_52%,rgba(59,31,31,0.88))]" />
+      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(18,8,8,0.78),rgba(109,15,27,0.56)_52%,rgba(59,31,31,0.76))]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(247,232,213,0.12),transparent_42%)]" />
       <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-chocolate via-chocolate/55 to-transparent" />
 
