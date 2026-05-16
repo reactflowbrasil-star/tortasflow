@@ -1,16 +1,30 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Check, ShieldCheck, ShoppingBag, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  Award,
+  BookOpen,
+  Calculator,
+  Check,
+  ChefHat,
+  Gift,
+  ShieldCheck,
+  ShoppingBag,
+  Sparkles,
+} from "lucide-react";
 import { Countdown } from "./Countdown";
 
 const includes = [
   "12 módulos completos em vídeo HD",
-  "Mais de 50 receitas exclusivas",
-  "Planilha de precificação profissional",
-  "E-book de marketing para confeitaria",
   "Comunidade exclusiva de alunas",
-  "Certificado de conclusão",
   "Acesso vitalício às atualizações",
   "Suporte direto com a equipe",
+];
+
+const bonuses = [
+  { icon: ChefHat, title: "Mais de 50 receitas exclusivas" },
+  { icon: Calculator, title: "Planilha de precificação profissional" },
+  { icon: BookOpen, title: "E-book de marketing para confeitaria" },
+  { icon: Award, title: "Certificado de conclusão" },
 ];
 
 export function Offer() {
@@ -52,6 +66,10 @@ export function Offer() {
               <h3 className="mt-5 font-display text-3xl leading-tight text-cream">
                 Tortas Flow — Especialista em Tortas de Feira
               </h3>
+              <p className="mt-3 text-sm leading-6 text-cream/75">
+                Na compra do curso completo você recebe todo o treinamento e ainda leva
+                inteiramente grátis:
+              </p>
               <ul className="mt-6 grid gap-3 sm:grid-cols-2 md:block md:space-y-3">
                 {includes.map((i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-cream/85">
@@ -62,6 +80,25 @@ export function Offer() {
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-8 rounded-2xl border border-gold/35 bg-gold/10 p-4">
+                <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                  <Gift className="h-4 w-4" />
+                  Bônus grátis
+                </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {bonuses.map((bonus) => (
+                    <div key={bonus.title} className="flex items-center gap-3">
+                      <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-chocolate/50 text-gold">
+                        <bonus.icon className="h-4 w-4" />
+                      </span>
+                      <span className="text-sm font-medium leading-snug text-cream">
+                        {bonus.title}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="relative border-t border-gold/20 bg-marsala-grad/60 p-6 md:border-t-0 md:border-l md:p-12">
