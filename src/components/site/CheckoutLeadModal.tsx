@@ -4,10 +4,33 @@ import { ArrowRight, Loader2, LockKeyhole, X } from "lucide-react";
 import { CHECKOUT_URL } from "@/lib/checkout";
 
 const LEAD_EMAIL = "reactflowbrasil@gmail.com";
-const FORMSUBMIT_URL = `https://formsubmit.co/ajax/${LEAD_EMAIL}`;
+const FORMSUBMIT_URL = `https://formsubmit.co/${LEAD_EMAIL}`;
+const LEAD_SUBMIT_TARGET = "checkout-lead-submit-frame";
 
-const encodeForm = (data: Record<string, string>) =>
-  new URLSearchParams(data).toString();
+const submitEmailLead = (data: Record<string, string>) => {
+  const emailForm = document.createElement("form");
+  emailForm.action = FORMSUBMIT_URL;
+  emailForm.method = "POST";
+  emailForm.target = LEAD_SUBMIT_TARGET;
+  emailForm.style.display = "none";
+
+  Object.entries({
+    ...data,
+    _captcha: "false",
+    _subject: "Novo lead para compra do curso Tortas Flow",
+    _template: "table",
+  }).forEach(([name, value]) => {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    emailForm.appendChild(input);
+  });
+
+  document.body.appendChild(emailForm);
+  emailForm.submit();
+  window.setTimeout(() => emailForm.remove(), 1000);
+};
 
 const openCheckout = () => {
   const checkoutWindow = window.open(CHECKOUT_URL, "_blank", "noopener,noreferrer");
@@ -59,7 +82,7 @@ export function CheckoutLeadModal() {
     setError("");
   };
 
-  const submitLead = async (event: FormEvent<HTMLFormElement>) => {
+  const submitLead = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
     setError("");
@@ -73,43 +96,18 @@ export function CheckoutLeadModal() {
     };
 
     try {
-      const emailResponse = await fetch(FORMSUBMIT_URL, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...lead,
-          _captcha: "false",
-          _subject: "Novo lead para compra do curso Tortas Flow",
-          _template: "table",
-        }),
-      });
-
-      if (!emailResponse.ok) {
-        throw new Error("email-submit-failed");
-      }
+      submitEmailLead(lead);
     } catch {
-      const netlifyResponse = await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encodeForm({
-          "form-name": "checkout-lead",
-          ...lead,
-        }),
-      });
-
-      if (!netlifyResponse.ok) {
-        setSubmitting(false);
-        setError("Não foi possível enviar seus dados. Verifique os campos e tente novamente.");
-        return;
-      }
+      setSubmitting(false);
+      setError("Não foi possível enviar seus dados. Verifique os campos e tente novamente.");
+      return;
     }
 
-    openCheckout();
-    setSubmitting(false);
-    setOpen(false);
+    window.setTimeout(() => {
+      openCheckout();
+      setSubmitting(false);
+      setOpen(false);
+    }, 450);
   };
 
   return (
@@ -122,6 +120,12 @@ export function CheckoutLeadModal() {
         <input type="text" name="email_destino" />
         <input type="text" name="origem" />
       </form>
+      <iframe
+        title="Envio seguro dos dados"
+        name={LEAD_SUBMIT_TARGET}
+        className="hidden"
+        aria-hidden="true"
+      />
 
       <AnimatePresence>
         {open && (
