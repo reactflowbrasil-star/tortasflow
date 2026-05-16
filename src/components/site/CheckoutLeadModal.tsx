@@ -9,6 +9,14 @@ const FORMSUBMIT_URL = `https://formsubmit.co/ajax/${LEAD_EMAIL}`;
 const encodeForm = (data: Record<string, string>) =>
   new URLSearchParams(data).toString();
 
+const openCheckout = () => {
+  const checkoutWindow = window.open(CHECKOUT_URL, "_blank", "noopener,noreferrer");
+
+  if (!checkoutWindow) {
+    window.location.assign(CHECKOUT_URL);
+  }
+};
+
 export function CheckoutLeadModal() {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ nome: "", whatsapp: "", instagram: "" });
@@ -99,7 +107,9 @@ export function CheckoutLeadModal() {
       }
     }
 
-    window.location.href = CHECKOUT_URL;
+    openCheckout();
+    setSubmitting(false);
+    setOpen(false);
   };
 
   return (
