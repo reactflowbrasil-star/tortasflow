@@ -4,40 +4,10 @@ import { ArrowRight, Loader2, LockKeyhole, X } from "lucide-react";
 import { CHECKOUT_URL } from "@/lib/checkout";
 
 const LEAD_EMAIL = "reactflowbrasil@gmail.com";
-const FORMSUBMIT_URL = `https://formsubmit.co/${LEAD_EMAIL}`;
-const LEAD_SUBMIT_TARGET = "checkout-lead-submit-frame";
-
-const submitEmailLead = (data: Record<string, string>) => {
-  const emailForm = document.createElement("form");
-  emailForm.action = FORMSUBMIT_URL;
-  emailForm.method = "POST";
-  emailForm.target = LEAD_SUBMIT_TARGET;
-  emailForm.style.display = "none";
-
-  Object.entries({
-    ...data,
-    _captcha: "false",
-    _subject: "Novo lead para compra do curso Tortas Flow",
-    _template: "table",
-  }).forEach(([name, value]) => {
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = name;
-    input.value = value;
-    emailForm.appendChild(input);
-  });
-
-  document.body.appendChild(emailForm);
-  emailForm.submit();
-  window.setTimeout(() => emailForm.remove(), 1000);
-};
+const LEAD_ENDPOINT = "/api/submit-lead";
 
 const openCheckout = () => {
-  const checkoutWindow = window.open(CHECKOUT_URL, "_blank", "noopener,noreferrer");
-
-  if (!checkoutWindow) {
-    window.location.assign(CHECKOUT_URL);
-  }
+  window.location.assign(CHECKOUT_URL);
 };
 
 export function CheckoutLeadModal() {
@@ -82,7 +52,7 @@ export function CheckoutLeadModal() {
     setError("");
   };
 
-  const submitLead = (event: FormEvent<HTMLFormElement>) => {
+  const submitLead = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
     setError("");
@@ -96,7 +66,15 @@ export function CheckoutLeadModal() {
     };
 
     try {
-      submitEmailLead(lead);
+      const response = await fetch(LEAD_ENDPOINT, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(lead),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Lead endpoint failed with status ${response.status}`);
+      }
     } catch (err) {
       console.error("Lead submission error", err);
       setSubmitting(false);
@@ -104,22 +82,11 @@ export function CheckoutLeadModal() {
       return;
     }
 
-    window.setTimeout(() => {
-      openCheckout();
-      setSubmitting(false);
-      setOpen(false);
-    }, 450);
+    openCheckout();
   };
 
   return (
     <>
-      <iframe
-        title="Envio seguro dos dados"
-        name={LEAD_SUBMIT_TARGET}
-        className="hidden"
-        aria-hidden="true"
-      />
-
       <AnimatePresence>
         {open && (
           <motion.div
@@ -206,7 +173,11 @@ export function CheckoutLeadModal() {
                   disabled={submitting}
                   className="btn-luxe mt-6 inline-flex w-full items-center justify-center gap-2 px-5 py-3.5 text-xs font-bold uppercase tracking-[0.12em] disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <LockKeyhole className="h-4 w-4" />}
+                  {submitting ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <LockKeyhole className="h-4 w-4" />
+                  )}
                   {submitting ? "Enviando..." : "Ir para compra"}
                   {!submitting && <ArrowRight className="h-4 w-4" />}
                 </button>
