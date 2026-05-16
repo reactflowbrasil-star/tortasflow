@@ -113,12 +113,12 @@ export function Offer() {
                   12x de
                 </p>
                 <p className="font-display text-6xl leading-none text-cream sm:text-7xl">
-                  R$ 13<span className="text-3xl text-cream/70">,44</span>
+                  R$ 5<span className="text-3xl text-cream/70">,16</span>
                 </p>
                 <div className="mt-4 rounded-2xl border border-gold/30 bg-black/20 px-4 py-3">
                   <p className="text-xs uppercase tracking-widest text-cream/60">ou no Pix por</p>
                   <p className="mt-1 font-display text-3xl leading-none text-gold">
-                    R$ 129<span className="text-xl text-gold/80">,90</span>
+                    R$ 49<span className="text-xl text-gold/80">,90</span>
                   </p>
                 </div>
 

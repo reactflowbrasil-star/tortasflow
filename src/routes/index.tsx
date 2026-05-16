@@ -47,7 +47,7 @@ export const Route = createFileRoute("/")({
           description: "Curso online completo para produzir e vender tortas de feira lucrativas.",
           provider: { "@type": "Organization", name: "Tortas Flow" },
           inLanguage: "pt-BR",
-          offers: { "@type": "Offer", price: "129.90", priceCurrency: "BRL" },
+          offers: { "@type": "Offer", price: "49.90", priceCurrency: "BRL" },
         }),
       },
     ],
