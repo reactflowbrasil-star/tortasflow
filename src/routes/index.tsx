@@ -14,6 +14,8 @@ import { Offer } from "@/components/site/Offer";
 import { Guarantee } from "@/components/site/Guarantee";
 import { Faq } from "@/components/site/Faq";
 import { StickyCta } from "@/components/site/StickyCta";
+import { PurchaseNotifications } from "@/components/site/PurchaseNotifications";
+import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
 import { Footer } from "@/components/site/Footer";
 
 export const Route = createFileRoute("/")({
@@ -73,6 +75,8 @@ function Landing() {
         <Faq />
         <Footer />
         <StickyCta />
+        <PurchaseNotifications />
+        <WhatsAppFloat />
       </main>
     </>
   );
